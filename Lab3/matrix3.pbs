@@ -1,0 +1,54 @@
+#!/bin/bash
+#PBS -N matrix4
+#PBS -q qstudent
+#PBS -l nodes=1:ppn=16
+#PBS -j oe
+
+cd $PBS_O_WORKDIR
+procs=$(cat $PBS_NODEFILE | wc -l)
+date +%s.%N
+./matrix4 1 6000
+date +%s.%N
+date +%s.%N
+./matrix4 4 6000 
+date +%s.%N
+date +%s.%N
+./matrix4 9 6000
+date +%s.%N
+date +%s.%N
+./matrix4 16 6000
+date +%s.%N
+date +%s.%N
+./matrix4 25 6000
+date +%s.%N
+date +%s.%N
+./matrix4 1 12000
+date +%s.%N
+date +%s.%N
+./matrix4 4 12000
+date +%s.%N
+date +%s.%N
+./matrix4 9 12000
+date +%s.%N
+date +%s.%N
+./matrix4 16 12000
+date +%s.%N
+date +%s.%N
+./matrix4 25 12000
+date +%s.%N
+date +%s.%N
+./matrix4 1 30000
+date +%s.%N
+date +%s.%N
+./matrix4 4 30000
+date +%s.%N
+date +%s.%N
+./matrix4 9 30000
+date +%s.%N
+date +%s.%N
+./matrix4 16 30000
+date +%s.%N
+date +%s.%N
+./matrix4 25 30000
+date +%s.%N
+date +%s.%N
