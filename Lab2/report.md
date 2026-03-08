@@ -166,13 +166,15 @@ To ensure roughly balanced workload among processors **P₁, P₂, …, Pn**, th
 
 $$i_k^2 − i_{k−1}^2 = i_{k−1}^2 − i_{k−2}^2$$
 
+That is,
+
+$$ i_k = \sqrt{k}*i_1 $$
+
 For each sub-block, the required number of operations becomes proportional to:
 
-$$n^2 / \sqrt{t}$$
+$$ 1+2+...+\frac{n}{\sqrt{t}}=\frac{n(\sqrt{t} + n)}{2t} $$
 
 which is equivalent to reducing the matrix scale to $1 / \sqrt{t}$ of the original size.
-
-
 
 Overall, the three algorithms divide matrix **Mij** into **n/t blocks**, then assign each block to a thread using **pthread_create**. After all threads finish their tasks and synchronize using **pthread_join**, the final result **MTij** is obtained.
 
