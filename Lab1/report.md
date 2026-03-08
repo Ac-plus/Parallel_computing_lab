@@ -80,7 +80,7 @@ End
 
 ```
 
----
+ 
 
 ## 2.2 Probability Method Pseudocode
 
@@ -123,7 +123,7 @@ End
 
 ```
 
----
+ 
 
 ## 2.3 Power Series Method Pseudocode
 
@@ -173,7 +173,7 @@ Each thread completes its computation and contributes its result to the final su
 
 Since global variables such as **sum** and **pi** cannot be accessed simultaneously by multiple threads safely, a **mutex lock** is used to ensure mutual exclusion during updates.
 
----
+ 
 
 # III. Experimental Data Analysis
 
@@ -182,13 +182,13 @@ Since global variables such as **sum** and **pi** cannot be accessed simultaneou
 ### (1) CPU Specifications
 
 | Cores | Model | Clock Frequency | Cache |
-|------|------|------|------|
+|  |  |  |  |
 | 4 | Six-Core AMD Opteron(tm) Processor 2431 | 2400.085 MHz | 512 KB |
 
 ### (2) Memory Information
 
 | Memory Capacity | Memory Bandwidth |
-|------|------|
+|  |  |
 | 8174052 kB | 1000 Mb/s |
 
 ### (3) Network Parameters (Campus WLAN)
@@ -216,7 +216,7 @@ Loopback address: 127.0.0.1
 #### (1) Program Execution Time (ns)
 
 | Threads | 1e4 | 1e5 | 1e6 | 1e7 | 1e8 |
-|------|------|------|------|------|------|
+|  |  |  |  |  |  |
 | 1 | 23754120 | 14789343 | 45501470 | 221557140 | 1235737800 |
 | 2 | 11588335 | 14107704 | 28786897 | 154502391 | 657028675 |
 | 4 | 11669397 | 12889623 | 20100593 | 95278739 | 424170255 |
@@ -226,7 +226,7 @@ Loopback address: 127.0.0.1
 PI values:
 
 | Data Size | PI |
-|------|------|
+|  |  |
 | 1e4 | 3.141592741 |
 | 1e5 | 3.141592741 |
 | 1e6 | 3.141592741 |
@@ -243,7 +243,7 @@ PI values:
 #### (1) Program Execution Time (ns)
 
 | Threads | 1e4 | 1e5 | 1e6 | 1e7 | 1e8 |
-|------|------|------|------|------|------|
+|  |  |  |  |  |  |
 | 1 | 19047021 | 20251274 | 72647571 | 397257804 | 3236879348 |
 | 2 | 11669397 | 15562534 | 55416345 | 275893449 | 1635401725 |
 | 4 | 11516332 | 13953447 | 33194065 | 156430006 | 874607324 |
@@ -253,7 +253,7 @@ PI values:
 PI values:
 
 | Data Size | PI |
-|------|------|
+|  |  |
 | 1e4 | 3.150400000 |
 | 1e5 | 3.143640000 |
 | 1e6 | 3.141600000 |
@@ -270,7 +270,7 @@ PI values:
 #### (1) Program Execution Time (ns)
 
 | Threads | 1e4 | 1e5 | 1e6 | 1e7 | 1e8 |
-|------|------|------|------|------|------|
+|  |  |  |  |  |  |
 | 1 | 12830734 | 10909318 | 32841920 | 138804674 | 904424428 |
 | 2 | 10397672 | 9259700 | 22530317 | 81527354 | 464498519 |
 | 4 | 11076211 | 10437965 | 14690160 | 55942773 | 455699682 |
@@ -280,7 +280,7 @@ PI values:
 PI values:
 
 | Data Size | PI |
-|------|------|
+|  |  |
 | 1e4 | 3.141492653 |
 | 1e5 | 3.141582653 |
 | 1e6 | 3.141591653 |
@@ -308,7 +308,7 @@ PI values:
 
 7. As the number of threads increases, the **efficiency E** of the algorithm decreases from 100% (serial execution), because the workload is distributed among multiple threads.
 
----
+ 
 
 # IV. Experimental Summary
 
@@ -322,7 +322,7 @@ PI values:
 
 4. Sometimes parallel execution was slower than serial execution because the **PBS configuration allocated too few processors (ppn)**. After setting `ppn = 8`, the problem was resolved.
 
----
+ 
 
 ## 4.2 Understanding of pthread, OpenMP, and MPI Parallel Programming
 
@@ -337,7 +337,7 @@ Another difference lies in compilation:
 - OpenMP uses compiler directives (`#pragma`) and the compiler handles thread creation.
 - pthread is a library where thread creation and management are controlled explicitly by the programmer.
 
----
+ 
 
 ### 4.2.2 MPI Programming Model
 
@@ -355,7 +355,7 @@ Disadvantages:
 - Algorithms often require significant modification if errors occur
 - Performance can be affected by network communication overhead
 
----
+ 
 
 # V. Course Summary
 
@@ -367,7 +367,7 @@ Disadvantages:
 
 3. Teachers and teaching assistants actively answered questions during experiments, improving learning efficiency.
 
----
+ 
 
 ## 5.2 Suggestions for Improvement
 
@@ -375,12 +375,12 @@ Disadvantages:
 
 2. Online lectures could include **live programming demonstrations**. Since parallel computing is highly practical, showing real code examples would improve understanding.
 
----
+ 
 
 # Appendix: Analysis of Experiments and Course Concepts
 
 | No. | Experiment Content | Theoretical Knowledge | Analysis |
-|----|----|----|----|
+| -| -| -| -|
 | 1 | Analyze speedup and efficiency | Performance analysis | Speedup, efficiency, and scalability can evaluate parallel program performance |
 | 2 | Implement programs using pthread | Thread concept and pthread programming | Threads enable concurrent task execution and improve performance |
 | 3 | Protect mutex variables such as sum and pi | Relationship between processes and threads | Proper synchronization between variables is essential in parallel programs |
