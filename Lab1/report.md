@@ -20,28 +20,28 @@ For each configuration, the **execution time** and **computed PI value** are rec
 
 Formula for calculation:
 
-(Integral approximation formula for PI)
+<img width="527" height="115" alt="image" src="https://github.com/user-attachments/assets/47dc2970-bf67-4bc8-9a93-4bd7626355c3" />
 
 ### (2) Probability Method
 
 Randomly throw **n points** into a square.  
 If **m points** fall inside the quarter circle, then:
 
-π ≈ 4m / n
+<img width="179" height="78" alt="image" src="https://github.com/user-attachments/assets/e05ba154-c242-40f5-914d-3a20e17d00b4" />
+
 
 ### (3) Power Series Method
 
 Formula for calculation:
 
-(Leibniz series formula for PI)
+<img width="736" height="87" alt="image" src="https://github.com/user-attachments/assets/24124ef4-62cb-43ba-8e5c-0537d2061b2b" />
 
----
 
 # II. Parallel Algorithm Design and Analysis
 
 Based on the three algorithms above, the pseudocode for each program is designed as follows.
 
----
+
 
 ## 2.1 Integral Method Pseudocode
 
@@ -208,7 +208,6 @@ Loopback address: 127.0.0.1
 
 ```
 
----
 
 ## 3.2 Experimental Data Analysis
 
@@ -236,9 +235,8 @@ PI values:
 
 #### (2) Speedup and Efficiency
 
-(Data analysis omitted here but calculated from timing results)
+<img width="1001" height="348" alt="image" src="https://github.com/user-attachments/assets/a114f218-6a71-4eaa-bb32-2386dfb932de" />
 
----
 
 ### 3.2.2 Probability Method
 
@@ -262,7 +260,10 @@ PI values:
 | 1e7 | 3.14178080 |
 | 1e8 | 3.14157136 |
 
----
+#### (2) Speedup and Efficiency
+
+<img width="1023" height="378" alt="image" src="https://github.com/user-attachments/assets/ec7e4efc-8d20-46ce-961a-a1f8a0d699bf" />
+
 
 ### 3.2.3 Power Series Method
 
@@ -286,7 +287,10 @@ PI values:
 | 1e7 | 3.141592553 |
 | 1e8 | 3.141592643 |
 
----
+#### (2) Speedup and Efficiency
+
+-<img width="1084" height="383" alt="image" src="https://github.com/user-attachments/assets/1a97db5b-dd6d-484c-ab46-474076ddcfc6" />
+
 
 ## 3.2.4 Data Analysis
 
