@@ -216,7 +216,7 @@ Loopback address: 127.0.0.1
 #### (1) Program Execution Time (ns)
 
 | Threads | 1e4 | 1e5 | 1e6 | 1e7 | 1e8 |
-|  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- |
 | 1 | 23754120 | 14789343 | 45501470 | 221557140 | 1235737800 |
 | 2 | 11588335 | 14107704 | 28786897 | 154502391 | 657028675 |
 | 4 | 11669397 | 12889623 | 20100593 | 95278739 | 424170255 |
@@ -226,7 +226,7 @@ Loopback address: 127.0.0.1
 PI values:
 
 | Data Size | PI |
-|  |  |
+| --- | --- |
 | 1e4 | 3.141592741 |
 | 1e5 | 3.141592741 |
 | 1e6 | 3.141592741 |
@@ -243,7 +243,7 @@ PI values:
 #### (1) Program Execution Time (ns)
 
 | Threads | 1e4 | 1e5 | 1e6 | 1e7 | 1e8 |
-|  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- |
 | 1 | 19047021 | 20251274 | 72647571 | 397257804 | 3236879348 |
 | 2 | 11669397 | 15562534 | 55416345 | 275893449 | 1635401725 |
 | 4 | 11516332 | 13953447 | 33194065 | 156430006 | 874607324 |
@@ -253,7 +253,7 @@ PI values:
 PI values:
 
 | Data Size | PI |
-|  |  |
+| --- | --- |
 | 1e4 | 3.150400000 |
 | 1e5 | 3.143640000 |
 | 1e6 | 3.141600000 |
@@ -270,7 +270,7 @@ PI values:
 #### (1) Program Execution Time (ns)
 
 | Threads | 1e4 | 1e5 | 1e6 | 1e7 | 1e8 |
-|  |  |  |  |  |  |
+| --- | --- | --- | --- | --- | --- |
 | 1 | 12830734 | 10909318 | 32841920 | 138804674 | 904424428 |
 | 2 | 10397672 | 9259700 | 22530317 | 81527354 | 464498519 |
 | 4 | 11076211 | 10437965 | 14690160 | 55942773 | 455699682 |
@@ -280,7 +280,7 @@ PI values:
 PI values:
 
 | Data Size | PI |
-|  |  |
+| --- | --- |
 | 1e4 | 3.141492653 |
 | 1e5 | 3.141582653 |
 | 1e6 | 3.141591653 |
@@ -380,7 +380,7 @@ Disadvantages:
 # Appendix: Analysis of Experiments and Course Concepts
 
 | No. | Experiment Content | Theoretical Knowledge | Analysis |
-| -| -| -| -|
+| ---| --- | --- | --- |
 | 1 | Analyze speedup and efficiency | Performance analysis | Speedup, efficiency, and scalability can evaluate parallel program performance |
 | 2 | Implement programs using pthread | Thread concept and pthread programming | Threads enable concurrent task execution and improve performance |
 | 3 | Protect mutex variables such as sum and pi | Relationship between processes and threads | Proper synchronization between variables is essential in parallel programs |
