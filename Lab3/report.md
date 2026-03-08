@@ -27,9 +27,8 @@ Each processor performs the transpose operation on its assigned block in paralle
 2. Internal transpose within each process domain
 3. Merge and output the final result
 
-Figure 1
+<img width="1016" height="295" alt="image" src="https://github.com/user-attachments/assets/590b9c6a-61aa-4a02-942a-2bb6cc17773a" />
 
----
 
 # II. Parallel Algorithm Analysis and Design
 
@@ -43,9 +42,8 @@ n × (sqrt(t) + n) / (2t)
 
 This is equivalent to reducing the matrix scale (i.e., the number of matrix elements) to **1/t of the original size**, while the time complexity remains **O(n²)**.
 
-Figure 2. Workflow of the MPI matrix transpose algorithm
+<img width="536" height="823" alt="image" src="https://github.com/user-attachments/assets/5bebe1b9-37ea-47e0-8864-5d40eaeac60c" />
 
----
 
 # III. Experimental Data Analysis
 
@@ -64,7 +62,7 @@ Figure 2. Workflow of the MPI matrix transpose algorithm
 | 8174052 kB      | 1000 Mb/s        |
 
 ### (3) Network Parameters (Campus WLAN)
-
+```
 eth0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST> mtu 1500
 inet 10.0.0.6 netmask 255.255.255.0 broadcast 10.0.0.255
 
@@ -74,7 +72,7 @@ inet 192.168.10.6 netmask 255.255.255.0 broadcast 192.168.10.255
 lo: flags=73<UP,LOOPBACK,RUNNING> mtu 65536
 inet 127.0.0.1 netmask 255.0.0.0
 
----
+```
 
 ## 3.2 Experimental Data Analysis
 
@@ -92,23 +90,22 @@ Note: In the following figures and tables, **data size refers to the matrix dime
 
 Table 1. Program execution time.
 
----
+
 
 ### 3.2.2 Speedup Curve
 
 As shown in **Figure 3**, this figure illustrates the speedup distribution of the MPI partition-based transpose algorithm.
 
-Figure 3. Speedup curve of the MPI partition algorithm.
+<img width="816" height="481" alt="image" src="https://github.com/user-attachments/assets/74dc3d9a-9dfc-41d1-888f-5a54f69195c7" />
 
----
+
 
 ### 3.2.3 Efficiency
 
 As shown in **Figure 4**, the figure illustrates the efficiency distribution of the MPI partition-based transpose algorithm.
 
-Figure 4. Efficiency curve of the MPI partition algorithm.
+<img width="909" height="487" alt="image" src="https://github.com/user-attachments/assets/62084b17-f9c8-4f17-a240-5b0871c50aa8" />
 
----
 
 ## 3.2.4 Data Analysis
 
@@ -130,7 +127,7 @@ Figure 4. Efficiency curve of the MPI partition algorithm.
 
 5. As the number of processes increases, the **algorithm efficiency E decreases from 100% (serial)**, because the workload is distributed among multiple processes.
 
----
+
 
 # IV. Experimental Summary
 
@@ -142,7 +139,7 @@ Figure 4. Efficiency curve of the MPI partition algorithm.
 
 3. Through these experiments, it becomes clear that improving program performance is a complex task. Simply adding threads or calling MPI is insufficient. Many practical factors must be considered, and different methods must be applied depending on the problem characteristics. For example, **matrix transposition may be better suited to multithreading approaches**. This complexity highlights both the **challenge and appeal of parallel computing**.
 
----
+
 
 # 4.2 Understanding of pthread, OpenMP, and MPI Parallel Programming
 
@@ -167,7 +164,7 @@ Compilation differences:
 * **OpenMP** requires compiler directives such as `#pragma`.
 * **pthread** is a library where thread creation and management are handled directly by the programmer.
 
----
+
 
 ## 4.2.2 MPI Programming Model
 
@@ -187,7 +184,7 @@ Disadvantages:
 * Algorithms often require significant modification if errors occur
 * Performance may be affected by network communication overhead
 
----
+
 
 # V. Course Summary
 
@@ -199,7 +196,6 @@ Disadvantages:
 
 3. Teachers and teaching assistants actively answered questions during experiments, helping students solve problems efficiently and improving learning outcomes.
 
----
 
 ## 5.2 Suggestions for Improvement
 
@@ -207,7 +203,7 @@ Disadvantages:
 
 2. Uploaded lecture videos could be **edited into shorter segments** based on different topics. This would make it easier for students to review specific knowledge points and reduce fatigue from watching long recordings.
 
----
+
 
 # Appendix: Analysis of Experiments and Course Concepts
 
