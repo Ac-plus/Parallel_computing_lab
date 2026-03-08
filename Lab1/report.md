@@ -182,13 +182,13 @@ Since global variables such as **sum** and **pi** cannot be accessed simultaneou
 ### (1) CPU Specifications
 
 | Cores | Model | Clock Frequency | Cache |
-|  |  |  |  |
+| --- | --- | --- | --- |
 | 4 | Six-Core AMD Opteron(tm) Processor 2431 | 2400.085 MHz | 512 KB |
 
 ### (2) Memory Information
 
 | Memory Capacity | Memory Bandwidth |
-|  |  |
+| --- | --- |
 | 8174052 kB | 1000 Mb/s |
 
 ### (3) Network Parameters (Campus WLAN)
