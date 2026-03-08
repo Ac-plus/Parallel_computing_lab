@@ -21,11 +21,11 @@ For each configuration, the **execution time** and **result correctness** are re
 ### (1) Serial Method
 
 For an **n × n matrix**, two nested `for` loops sequentially scan each row and column.
-The element **M[j][i]** is assigned to **M[i][j]**.
+The element `M[j][i]` is assigned to `M[i][j]`.
 
 ### (2) Block Chessboard Partition Method
 
-Assume the number of processors is **p²**.
+Assume the number of processors is $p^2$.
 The matrix can then be divided into **p × p blocks**, resulting in **p² submatrices**, as shown in **Figure 1**.
 
 Each processor performs transposition on its assigned block in parallel:
@@ -39,9 +39,9 @@ As shown in **Figure 2**, the matrix is partitioned into **p blocks using rectan
 
 Each block is transposed independently and then merged into the final output matrix.
 
-Figure 1               Figure 2
+<img width="913" height="342" alt="image" src="https://github.com/user-attachments/assets/ba188e7e-3fde-44ef-9b80-c69feaa81e85" />
 
----
+
 
 # II. Parallel Algorithm Design and Analysis
 
@@ -49,12 +49,14 @@ For the three algorithms above, the following pseudocode is designed.
 
 For matrix initialization, this experiment uses **sequential memory numbering**, where the value of **M[i][j]** equals its position index in the array:
 
-M[0][0] = 1, M[0][1] = 2, …, M[n−1][n−1] = n².
+```
+M[0][0] = 1, M[0][1] = 2, ..., M[n−1][n−1] = n²
+```
 
----
+
 
 ## 2.1 Serial Method Pseudocode
-
+```
 Input: matrix dimension n
 Output: transposed matrix MTij
 
@@ -69,17 +71,16 @@ end for
 Output each M[i,j]
 free(Mij)
 End
-
+```
 Under this method, the total number of transpose operations is:
 
-1 + 2 + … + n = n × (1 + n) / 2
+$$1 + 2 + … + n = n * (1 + n) / 2$$
 
 The time complexity of the algorithm is **O(n²)**.
 
----
 
 ## 2.2 Block Chessboard Partition Method Pseudocode
-
+```
 Input: matrix dimension n, thread count t
 Output: transposed matrix MTij
 
@@ -111,19 +112,18 @@ main:
  free(Mij)
 
 End
-
+```
 In this method, the matrix is divided into **sqrt(t) × sqrt(t) = t square blocks**.
 
 Since the blocks are processed concurrently by multiple threads, the effective computational cost becomes:
 
-n × (sqrt(t) + n) / (2t)
+$$n * (\sqrt{t} + n) / (2t)$$
 
 which is equivalent to reducing the matrix scale (number of elements) to **1/t of the original size**.
 
----
 
 ## 2.3 Rectangular Partition Method Pseudocode
-
+```
 Input: matrix dimension n, thread count t
 Output: transposed matrix MTij
 
@@ -159,26 +159,26 @@ main:
  free(Mij)
 
 End
-
+```
 The rectangular partition method divides the matrix **unevenly along one dimension**.
 
 To ensure roughly balanced workload among processors **P₁, P₂, …, Pn**, the following condition must hold for any k (k = 2,3,…,n):
 
-ik² − ik−1² = ik−1² − ik−2²
+$$i_k^2 − i_{k−1}^2 = i_{k−1}^2 − i_{k−2}^2$$
 
 For each sub-block, the required number of operations becomes proportional to:
 
-n² / sqrt(t)
+$$n^2 / \sqrt{t}$$
 
-which is equivalent to reducing the matrix scale to **1 / sqrt(t)** of the original size.
+which is equivalent to reducing the matrix scale to $1 / \sqrt{t}$ of the original size.
 
----
+
 
 Overall, the three algorithms divide matrix **Mij** into **n/t blocks**, then assign each block to a thread using **pthread_create**. After all threads finish their tasks and synchronize using **pthread_join**, the final result **MTij** is obtained.
 
 Unlike the previous PI experiment, **mutex locks are unnecessary**, because each thread operates on **different matrix sub-blocks without overlap**, so there are no shared resources requiring mutual exclusion.
 
----
+
 
 # III. Experimental Data Analysis
 
@@ -197,7 +197,7 @@ Unlike the previous PI experiment, **mutex locks are unnecessary**, because each
 | 8174052 kB      | 1000 Mb/s        |
 
 ### (3) Network Parameters (Campus WLAN)
-
+```
 eth0:
 IP: 10.0.0.6
 Netmask: 255.255.255.0
@@ -208,14 +208,12 @@ Netmask: 255.255.255.0
 
 lo:
 Loopback address: 127.0.0.1
-
----
+```
 
 ## 3.2 Experimental Data Analysis
 
 Note: In the following figures and tables, **data size refers to the matrix dimension n**.
 
----
 
 ### 3.2.1 Serial Method
 
@@ -227,7 +225,6 @@ Note: In the following figures and tables, **data size refers to the matrix dime
 
 Table 1. Execution time of the serial method.
 
----
 
 ### 3.2.2 Block Chessboard Partition Method
 
@@ -247,9 +244,11 @@ Table 2. Execution time for the block chessboard partition method.
 
 As shown in **Figure 3**, the distribution of speedup and efficiency for the block chessboard partition method.
 
+<img width="1246" height="545" alt="image" src="https://github.com/user-attachments/assets/2e38e081-a8dd-446c-b719-38066d7f1886" />
+
 Figure 3. Experimental data of the block chessboard partition method.
 
----
+
 
 ### 3.2.3 Rectangular Partition Method
 
@@ -269,9 +268,11 @@ Table 3. Execution time for the rectangular partition method.
 
 As shown in **Figure 4**, the speedup and efficiency distribution for the rectangular partition method.
 
+<img width="1296" height="542" alt="image" src="https://github.com/user-attachments/assets/ee60fbf6-4739-4a35-a08c-f0f9a1390cda" />
+
 Figure 4. Experimental data for the rectangular partition method.
 
----
+
 
 ## 3.2.4 Data Analysis
 
@@ -295,7 +296,7 @@ Figure 4. Experimental data for the rectangular partition method.
 
 8. As thread count increases, **algorithm efficiency E decreases from 100%**, because workload is divided among multiple threads.
 
----
+
 
 # IV. Experimental Summary
 
@@ -309,7 +310,7 @@ Figure 4. Experimental data for the rectangular partition method.
 
 4. These experiments demonstrate that improving program performance is complex and involves many practical considerations beyond simply adding threads. This complexity is both a challenge and an attraction of **parallel computing**.
 
----
+
 
 ## 4.2 Understanding of pthread, OpenMP, and MPI Parallel Programming
 
@@ -334,7 +335,7 @@ Compilation differences:
 * **OpenMP** requires compiler directives such as `#pragma`.
 * **pthread** is a library where thread creation and management are explicitly implemented by the programmer.
 
----
+
 
 ### 4.2.2 MPI Programming Model
 
@@ -354,7 +355,7 @@ Disadvantages:
 * Algorithm modifications may be required when errors occur
 * Network communication may affect performance
 
----
+
 
 # V. Course Summary
 
@@ -366,7 +367,7 @@ Disadvantages:
 
 3. Teachers and teaching assistants actively answered questions during experiments, greatly improving learning efficiency.
 
----
+
 
 ## 5.2 Suggestions for Improvement
 
