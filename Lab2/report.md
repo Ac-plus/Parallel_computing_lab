@@ -125,7 +125,7 @@ which is equivalent to reducing the matrix scale (number of elements) to **1/t o
 ## 2.3 Rectangular Partition Method Pseudocode
 ```
 Input: matrix dimension n, thread count t
-Output: transposed matrix MTij
+Output: transposed matrix M'ij
 
 Start
 
@@ -176,7 +176,7 @@ $$ 1+2+...+\frac{n}{\sqrt{t}}=\frac{n(\sqrt{t} + n)}{2t} $$
 
 which is equivalent to reducing the matrix scale to $1 / \sqrt{t}$ of the original size.
 
-Overall, the three algorithms divide matrix **Mij** into **n/t blocks**, then assign each block to a thread using **pthread_create**. After all threads finish their tasks and synchronize using **pthread_join**, the final result **MTij** is obtained.
+Overall, the three algorithms divide matrix **Mij** into **n/t blocks**, then assign each block to a thread using **pthread_create**. After all threads finish their tasks and synchronize using **pthread_join**, the final result **M'ij** is obtained.
 
 Unlike the previous PI experiment, **mutex locks are unnecessary**, because each thread operates on **different matrix sub-blocks without overlap**, so there are no shared resources requiring mutual exclusion.
 
