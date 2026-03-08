@@ -1,4 +1,3 @@
-```markdown
 # Experiment 1: Multithreaded Computation of PI
 
 ## I. Overview of the Experiment
@@ -55,19 +54,19 @@ piece = n / t
 start = thread_id * piece
 end = start + piece
 
-```
+
 for i from start to end - 1
     compute rectangle integration sum in this domain
 
     pthread_mutex_lock(mutex)
     add local integration result to global pi
     pthread_mutex_unlock(mutex)
-```
+
 
 main:
 Get n and t   // n = task size, t = number of threads
 
-```
+
 for i from 0 to t-1
     create thread i to execute thread_function
 
@@ -75,7 +74,7 @@ for i from 0 to t-1
     wait for threads to finish
 
 output pi
-```
+
 
 End
 
@@ -94,7 +93,7 @@ length = n / t
 start = thread_id * length
 end = start + length
 
-```
+
 for i from 0 to length - 1
     generate random points using rand_r
     if point satisfies 0 <= x <= 1 and 0 <= y <= 1
@@ -103,12 +102,12 @@ for i from 0 to length - 1
 pthread_mutex_lock(mutex)
 add local_m to global m
 pthread_mutex_unlock(mutex)
-```
+
 
 main:
 Get n and t   // n = number of point pairs, t = number of threads
 
-```
+
 for i from 0 to t-1
     create thread i to execute thread_sum
 
@@ -118,7 +117,7 @@ for i from 0 to t-1
 pi = 4 * m / n
 
 output pi
-```
+
 
 End
 
@@ -137,7 +136,7 @@ length = n / t
 start = thread_id * length
 end = start + length
 
-```
+
 factor = 1 if start % 2 == 0 else -1
 
 for i from 0 to length - 1
@@ -147,12 +146,12 @@ for i from 0 to length - 1
 pthread_mutex_lock(mutex)
 add local_sum to global sum
 pthread_mutex_unlock(mutex)
-```
+
 
 main:
 Get n and t
 
-```
+
 for i from 0 to t-1
     create thread i to execute thread_sum
 
@@ -162,7 +161,7 @@ for i from 0 to t-1
 pi = 4.0 * sum
 
 output pi
-```
+
 
 End
 
@@ -382,4 +381,3 @@ Disadvantages:
 | 2 | Implement programs using pthread | Thread concept and pthread programming | Threads enable concurrent task execution and improve performance |
 | 3 | Protect mutex variables such as sum and pi | Relationship between processes and threads | Proper synchronization between variables is essential in parallel programs |
 | 4 | Limited speedup in power series method | Speedup laws | When task size is fixed, increasing concurrency may not significantly increase speedup |
-```
