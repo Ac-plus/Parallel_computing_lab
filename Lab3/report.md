@@ -8,18 +8,23 @@ The program is implemented using **MPI communication** and written in **C/C++** 
 
 For the implemented program, three matrix sizes are tested:
 
+$$
 6000, 12000, 30000
+$$
 
 and five problem partition configurations:
 
-1, 4, 9, 16, 25 processes
+$$
+1, 4, 9, 16, 25\ processes
+$$
+
 (Using one process corresponds to a more complex serial implementation.)
 
 For each configuration, the **execution time** and **computation results** are recorded. Data analysis and performance analysis are then conducted to compare the performance of different approaches.
 
 This experiment adopts the **block chessboard partition method** for matrix transposition.
 
-Assume the number of processors is **p²**. The matrix can then be divided into **p × p blocks**, resulting in **p² submatrices**, as shown in Figure 1.
+Assume the number of processors is $p^2$. The matrix can then be divided into **$p\times p$ blocks**, resulting in **$p^2$ submatrices**, as shown in Figure 1.
 
 Each processor performs the transpose operation on its assigned block in parallel:
 
@@ -34,13 +39,15 @@ Each processor performs the transpose operation on its assigned block in paralle
 
 For the MPI-based algorithm described above, the program workflow is shown in **Figure 2**.
 
-Under this partitioning strategy, the matrix is divided into **sqrt(t) × sqrt(t) = t square blocks**.
+Under this partitioning strategy, the matrix is divided into **$\sqrt t \times\sqrt t = t$ square blocks**.
 
 Since each block is assigned to multiple processes performing transposition concurrently, the actual computational cost becomes:
 
-n × (sqrt(t) + n) / (2t)
+$$
+n \times (\sqrt t + n) / (2t)
+$$
 
-This is equivalent to reducing the matrix scale (i.e., the number of matrix elements) to **1/t of the original size**, while the time complexity remains **O(n²)**.
+This is equivalent to reducing the matrix scale (i.e., the number of matrix elements) to **$\frac 1 t$ of the original size**, while the time complexity remains **$O(n^2)$**.
 
 <img width="536" height="823" alt="image" src="https://github.com/user-attachments/assets/5bebe1b9-37ea-47e0-8864-5d40eaeac60c" />
 
