@@ -7,26 +7,26 @@ This experiment implements **matrix transposition using multithreaded parallel p
 Three methods are implemented using **C/C++ multithreading** on a remote virtual machine connected via **Xshell (CentOS 7.6, icc/icpc)**.
 
 For each method, experiments are conducted with five matrix sizes:
-
+```
 60, 600, 3000, 6000, 9000
-
+```
 and five multithreading configurations:
-
+```
 1, 4, 9, 16, 25 threads
-
+```
 (Using one thread corresponds to a more complex serial implementation.)
 
 For each configuration, the **execution time** and **result correctness** are recorded. Data analysis and performance analysis are then conducted to compare the performance of different methods.
 
 ### (1) Serial Method
 
-For an **n × n matrix**, two nested `for` loops sequentially scan each row and column.
+For an **n * n matrix**, two nested `for` loops sequentially scan each row and column.
 The element `M[j][i]` is assigned to `M[i][j]`.
 
 ### (2) Block Chessboard Partition Method
 
 Assume the number of processors is $p^2$.
-The matrix can then be divided into **p × p blocks**, resulting in **p² submatrices**, as shown in **Figure 1**.
+The matrix can then be divided into **p * p blocks**, resulting in **$p^2$ submatrices**, as shown in **Figure 1**.
 
 Each processor performs transposition on its assigned block in parallel:
 
@@ -47,65 +47,60 @@ Each block is transposed independently and then merged into the final output mat
 
 For the three algorithms above, the following pseudocode is designed.
 
-For matrix initialization, this experiment uses **sequential memory numbering**, where the value of **M[i][j]** equals its position index in the array:
+For matrix initialization, this experiment uses **sequential memory numbering**, where the value of `M[i][j]` equals its position index in the array:
 
-```
+$$
 M[0][0] = 1, M[0][1] = 2, ..., M[n−1][n−1] = n²
-```
+$$
 
 
 
 ## 2.1 Serial Method Pseudocode
 ```
 Input: matrix dimension n
-Output: transposed matrix MTij
-
+Output: transposed matrix M'
 Start
 Initialize each element M[i,j]
 for i = 0 to n−1
- for j = 0 to i−1
-  M[i,j] = M[j,i]
- end for
+  for j = 0 to i−1
+    M'[i,j] = M[j,i]
+  end for
 end for
-
-Output each M[i,j]
-free(Mij)
+Output each M'[i,j]
+free(M)
 End
 ```
 Under this method, the total number of transpose operations is:
 
 $$1 + 2 + … + n = n * (1 + n) / 2$$
 
-The time complexity of the algorithm is **O(n²)**.
+The time complexity of the algorithm is $O(n^2)$.
 
 
 ## 2.2 Block Chessboard Partition Method Pseudocode
 ```
 Input: matrix dimension n, thread count t
 Output: transposed matrix MTij
-
 Start
-
 thread_func:
- u = thread_no / sqrt(t)
- v = thread_no % sqrt(t)
-
- for i = u*m to (u+1)*m − 1
-  for j = v*m to (v+1)*m − 1
-   perform transpose on sub-block M[i,j]
-  end for
- end for
+  u = thread_no / sqrt(t)
+  v = thread_no % sqrt(t)
+  for i = u*m to (u+1)*m − 1
+    for j = v*m to (v+1)*m − 1
+      perform transpose on sub-block M[i,j]
+    end for
+  end for
 
 main:
- allocate memory for matrix Mij
- initialize each element M[i,j]
+ allocate memory for matrix M'
+ initialize each element M'[i,j]
 
  for i = 0 to t − 1
-  create thread i executing thread_func
+   create thread i executing thread_func
  end for
 
  for i = 0 to t − 1
-  wait for all threads to finish
+   wait for all threads to finish
  end for
 
  output each M[i,j]
