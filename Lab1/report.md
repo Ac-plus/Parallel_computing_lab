@@ -1,4 +1,4 @@
-# Experiment 1: Multithreaded Computation of PI
+# LAB 1: Multithreaded Computation of PI
 
 ## I. Overview of the Experiment
 
@@ -7,13 +7,13 @@ This experiment aims to compute the value of **PI** using **multithreaded parall
 The implementation is completed in **C++ with multithreading** on a remote virtual machine connected via **Xshell (CentOS 7.6, icc/icpc)**.
 
 For each method, experiments are conducted with five data scales:
-
+```
 1e4, 1e5, 1e6, 1e7, 1e8  
-
+```
 and five thread configurations:
-
+```
 1, 2, 4, 6, 8 threads (1 thread corresponds to serial execution).
-
+```
 For each configuration, the **execution time** and **computed PI value** are recorded. Data analysis and performance analysis are then performed to compare the performance of the different algorithms.
 
 ### (1) Integral Method
@@ -41,86 +41,49 @@ Formula for calculation:
 
 Based on the three algorithms above, the pseudocode for each program is designed as follows.
 
-
-
 ## 2.1 Integral Method Pseudocode
 
 ```
-
-Start
-
 thread_function:
-piece = n / t
-start = thread_id * piece
-end = start + piece
-
-
-for i from start to end - 1
-    compute rectangle integration sum in this domain
-
-    pthread_mutex_lock(mutex)
-    add local integration result to global pi
-    pthread_mutex_unlock(mutex)
-
-
+    piece = n / t
+    start = thread_id * piece
+    end = start + piece
+    for i from start to end - 1
+        compute rectangle integration sum in this domain
+        pthread_mutex_lock(mutex)
+        add local integration result to global pi
+        pthread_mutex_unlock(mutex)
 main:
-Get n and t   // n = task size, t = number of threads
-
-
-for i from 0 to t-1
-    create thread i to execute thread_function
-
-for i from 0 to t-1
-    wait for threads to finish
-
-output pi
-
-
-End
-
+    Get n and t   // n = task size, t = number of threads
+    for i from 0 to t-1
+        create thread i to execute thread_function
+    for i from 0 to t-1
+        wait for threads to finish
+    output pi
 ```
-
- 
 
 ## 2.2 Probability Method Pseudocode
 
 ```
-
-Start
-
 thread_sum:
-length = n / t
-start = thread_id * length
-end = start + length
-
-
-for i from 0 to length - 1
-    generate random points using rand_r
-    if point satisfies 0 <= x <= 1 and 0 <= y <= 1
-        local_m++
-
-pthread_mutex_lock(mutex)
-add local_m to global m
-pthread_mutex_unlock(mutex)
-
-
+    length = n / t
+    start = thread_id * length
+    end = start + length
+    for i from 0 to length - 1
+        generate random points using rand_r
+        if point satisfies 0 <= x <= 1 and 0 <= y <= 1
+            local_m++
+    pthread_mutex_lock(mutex)
+    add local_m to global m
+    pthread_mutex_unlock(mutex)
 main:
-Get n and t   // n = number of point pairs, t = number of threads
-
-
-for i from 0 to t-1
-    create thread i to execute thread_sum
-
-for i from 0 to t-1
-    wait for threads to finish
-
-pi = 4 * m / n
-
-output pi
-
-
-End
-
+    Get n and t   // n = number of point pairs, t = number of threads
+    for i from 0 to t-1
+        create thread i to execute thread_sum
+    for i from 0 to t-1
+        wait for threads to finish
+    pi = 4 * m / n
+    output pi
 ```
 
  
@@ -128,46 +91,28 @@ End
 ## 2.3 Power Series Method Pseudocode
 
 ```
-
-Start
-
 thread_sum:
-length = n / t
-start = thread_id * length
-end = start + length
-
-
-factor = 1 if start % 2 == 0 else -1
-
-for i from 0 to length - 1
-    factor alternates sign each step
-    local_sum += factor * (2*i + 1)
-
-pthread_mutex_lock(mutex)
-add local_sum to global sum
-pthread_mutex_unlock(mutex)
-
-
+    length = n / t
+    start = thread_id * length
+    end = start + length
+    factor = 1 if start % 2 == 0 else -1
+    for i from 0 to length - 1
+        factor alternates sign each step
+        local_sum += factor * (2*i + 1)
+    pthread_mutex_lock(mutex)
+    add local_sum to global sum
+    pthread_mutex_unlock(mutex)
 main:
-Get n and t
-
-
-for i from 0 to t-1
-    create thread i to execute thread_sum
-
-for i from 0 to t-1
-    wait for threads to finish
-
-pi = 4.0 * sum
-
-output pi
-
-
-End
-
+    Get n and t
+    for i from 0 to t-1
+        create thread i to execute thread_sum
+    for i from 0 to t-1
+        wait for threads to finish
+    pi = 4.0 * sum
+    output pi
 ```
 
-In general, the three algorithms divide the problem into **n/t sub-tasks**, and assign each sub-task to a thread using **pthread_create**.  
+In general, the three algorithms divide the problem into $n/t$ sub-tasks, and assign each sub-task to a thread using `pthread_create`.  
 
 Each thread completes its computation and contributes its result to the final sum.
 
