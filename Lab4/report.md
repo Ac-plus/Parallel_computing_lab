@@ -8,12 +8,12 @@ This experiment implements **WordCount**, which is one of the simplest distribut
 
 For example, if a text file contains the following content:
 ```
-Hello world
+Hikawa Sayo
 ```
 The output result should be:
 ```
-Hello 1
-world 1
+Hikawa 1
+Sayo 1
 ```
 WordCount can be implemented in several ways. In this experiment, the requirement is to implement the **WordCount program using Hadoop or Spark**.
 
