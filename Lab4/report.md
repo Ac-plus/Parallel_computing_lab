@@ -262,10 +262,6 @@ _(b)_
 
 _(c)_
 
-<img width="533" height="137" alt="image" src="https://github.com/user-attachments/assets/d78f31c0-571a-4d32-ad99-dcde28f32dc3" />
-
-_(d)_
-
 _Figure 3-2 Execution process screenshots_
 
 ## 3.2 Result Output
