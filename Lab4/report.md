@@ -25,8 +25,12 @@ In this experiment, the Hadoop environment is configured on an **Ubuntu 20.04 vi
 
 Figure 1-1 shows the command summary for configuring **OpenSSH**.
 
-<img width="486" height="84" alt="image" src="https://github.com/user-attachments/assets/005d4420-fe05-4c34-ba79-8ac3cb928a09" />
-
+```
+sudo apt-get install openssh-server
+sudo /etc/init.d/ssh start
+ssh-keygen -t rsa
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+```
 _Figure 1-1 Configuration of SSH password-free login_
 
 This configuration process consists of four steps:
@@ -41,8 +45,11 @@ This configuration process consists of four steps:
 (1) First, download the **JDK** from the official website and extract it.
 Then modify the `.bashrc` file and add the following configuration at the end of the file.
 
-<img width="524" height="63" alt="image" src="https://github.com/user-attachments/assets/1081235b-74df-439c-91f5-cc2d8aa420a6" />
-
+```
+export JAVA_HOME = /usr/java/jdk1.8.0_231
+export CLASSPATH = .:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export PATH = $JAVA_HOME/bin:$PATH
+```
 _Figure 1-2_
 
 (2) Add Java environment variable configurations in the **Profile file**, including settings for variables such as:
@@ -52,14 +59,20 @@ _Figure 1-2_
 
 as shown in Figure 1-3.
 
-<img width="522" height="98" alt="image" src="https://github.com/user-attachments/assets/81ff1632-0f82-4fc4-bf6a-3c725b56b89c" />
-
+```
+export JAVA_HOME=/usr/java/jdk1.8.0_231
+export JAVA_BIN=$JAVA_HOME/bin
+export JAVA_LIB=$JAVA_HOME/lib
+export CLASSPATH=.:$JAVA_LIB/tools.jar:$JAVA_LIB/dt.jar
+export PATH=$JAVA_HOME/bin:$PATH
+```
 _Figure 1-3 Java environment variable configuration_
 
 (3) Open the **environment file** and add the directory paths of JDK and related libraries.
 
-<img width="524" height="40" alt="image" src="https://github.com/user-attachments/assets/4011f695-8a49-483c-9d60-4bcb3d230e0e" />
-
+```
+PATH = "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/java/jdk1.8.0_231/lib:/usr/java/jdk1.8.0_231"
+```
 _Figure 1-4 Configuration of related directory paths_
 
 (4) After each modification, the command
@@ -82,8 +95,18 @@ Then Hadoop is installed into the specified directory. The configuration steps a
 
 Add Hadoop-related environment variables as shown in Figure 1-6.
 
-<img width="496" height="184" alt="image" src="https://github.com/user-attachments/assets/35355b29-1ed3-4209-9f19-50489f812ac1" />
-
+```
+export JAVA_HOME=/usr/java/jdk1.8.0_231
+export HADOOP_INSTALL=/usr/local/hadoop
+export PATH=$PATH:$HADOOP_INSTALL/bin
+export PATH=$PATH:$HADOOP_INSTALL/sbin
+export HADOOP_MAPRED_HOME=$HADOOP_INSTALL
+export HADOOP_COMMON_HOME=$HADOOP_INSTALL
+export HADOOP_HDFS_HOME=$HADOOP_INSTALL
+export YARN_HOME=$HADOOP_INSTALL
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_INSTALL/lib/native
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_INSTALL/lib"
+```
 _Figure 1-6 Hadoop variable configuration_
 
 #### (2) Configure Hadoop environment files
@@ -95,8 +118,11 @@ Add the content shown in Figure 1-7 to:
 
 (`yarn-env.sh` only needs to define `JAVA_HOME`).
 
-<img width="368" height="61" alt="image" src="https://github.com/user-attachments/assets/43c3845f-e11f-4551-985a-26c19fd8937b" />
-
+```
+export JAVA_HOME=/usr/java/jdk1.8.0_231
+export HADOOP=/usr/local/hadoop
+export PATH=$PATH:/usr/local/hadoop/bin
+```
 _Figure 1-7 Filling `.sh` configuration files_
 
 #### (3) Modify Hadoop configuration files
@@ -111,8 +137,14 @@ Replace the code between `<configuration>` and `</configuration>`.
 
 Figure 1-8 shows the terminal interface verifying that Hadoop has been successfully configured.
 
-<img width="542" height="108" alt="image" src="https://github.com/user-attachments/assets/4da3f371-38f7-4969-9526-2a4dc7c7dda8" />
-
+```
+Hadoop 2.7.4
+Subversion https://svn@git-wip-us.apache.org/repos/asf/hadoop.git -r ...
+Compiled by kshvachk on 2017-08-01T00:29Z
+Compiled with protoc 2.5.0
+From source with checksum 50b0468318b4ce9bd24dc467b7ce1148
+This command was run using /usr/local/hadoop/share/hadoop/common/hadoop-common-2.7.4.jar
+```
 _Figure 1-8 Hadoop configuration completion interface_
 
 ### 1.2.4 Network and Node Configuration
@@ -234,8 +266,11 @@ hadoop fs -ls
 ```
 to verify that the files have been successfully uploaded.
 
-<img width="533" height="37" alt="image" src="https://github.com/user-attachments/assets/275dedbb-d598-43d6-83fd-1c1bd86ece65" />
-
+```
+Found 2 items
+-rw-r--r-- 1 hadoop supergroup 0 2022-05-09 13:54 /lab4/output/_SUCCESS
+-rw-r--r-- 1 hadoop supergroup 32 2022-05-09 13:54 /lab4/output/part-r-00000
+```
 _Figure 3-1 Execution screenshot_
 
 ### (2) Run the MapReduce job
@@ -250,16 +285,65 @@ The execution results include:
 * File System Counters
 * Job Counters
 
-<img width="534" height="50" alt="image" src="https://github.com/user-attachments/assets/8e23d671-cee9-4df0-b221-b6920190a071" />
-
+```
+22/05/09 13:58:23 INFO mapreduce.Job: Job job_local524341653_0001 running ...
+22/05/09 13:58:23 INFO mapreduce.Job: map 100% reduce 0%
+22/05/09 13:58:53 INFO reduce.MergeManagerImpl: MergerManager: memoryLimit=...
+22/05/09 13:58:53 INFO reduce.EventFetcher: attempt_local524341653_0001 ...
+```
 _(a)_
 
-<img width="533" height="276" alt="image" src="https://github.com/user-attachments/assets/3fcc1754-9668-4609-bbe1-8874b9d90608" />
+```
+File System Counters
+   FILE: Number of bytes read=51
+   FILE: Number of bytes written=288301
+   FILE: Number of read operations=0
+   FILE: Number of large read operations=0
+   FILE: Number of write operations=0
+   HDFS: Number of bytes read=152
+   HDFS: Number of bytes written=32
+   HDFS: Number of read operations=9
+   HDFS: Number of large read operations=0
+   HDFS: Number of write operations=2
 
+Job Counters
+   Launched map tasks=2
+   Launched reduce tasks=1
+   Data-local map tasks=2
+   Total time spent by all maps in occupied slots (ms)=4084
+   Total time spent by all reduces in occupied slots (ms)=1832
+   Total time spent by all map tasks (ms)=4084
+   Total time spent by all reduce tasks (ms)=1832
+   Total vcore-milliseconds taken by all map tasks=4084
+   Total vcore-milliseconds taken by all reduce tasks=1832
+   Total megabyte-milliseconds taken by all map tasks=3831728
+   Total megabyte-milliseconds taken by all reduce tasks=2728643
+```
 _(b)_
 
-<img width="533" height="284" alt="image" src="https://github.com/user-attachments/assets/d0aac51f-5ec3-4bac-9bbe-1f7b196c16b2" />
-
+```
+Map-Reduce Framework
+   Map input records=2
+   Map output records=4
+   Map output bytes=39
+   Map output materialized bytes=62
+   Input split bytes=204
+   Combine input records=4
+   Combine output records=4
+   Reduce input groups=3
+   Reduce shuffle bytes=62
+   Reduce input records=4
+   Reduce output records=3
+   Spilled Records=8
+   Shuffled Maps=2
+   Failed Shuffles=0
+   Merged Map outputs=2
+   GC time elapsed (ms)=80
+   CPU time spent (ms)=1990
+   Physical memory (bytes) snapshot=729286434
+   Virtual memory (bytes) snapshot=4288357953
+   Total committed heap usage (bytes)=509213468
+```
 _(c)_
 
 _Figure 3-2 Execution process screenshots_
@@ -268,8 +352,13 @@ _Figure 3-2 Execution process screenshots_
 
 After executing the Hadoop program, the output result is shown in Figure 3-3.
 
-<img width="530" height="66" alt="image" src="https://github.com/user-attachments/assets/ecbd7ae6-ba09-4935-a978-525d6c7274b8" />
-
+```
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+Hello  2
+happy  1
+world  1
+```
 _Figure 3-3 Output result screenshot_
 
 The results confirm that the program correctly performs **word frequency counting**.
